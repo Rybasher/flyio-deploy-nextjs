@@ -1,6 +1,7 @@
 export default function Home() {
   // Get name from environment variable
-  const name = process.env.NAME || 'World';
+  console.log(process.env.NEXT_PUBLIC_NAME);
+  const name = process.env.NEXT_PUBLIC_NAME || 'World';
 
   return (
     <div className="font-sans flex items-center justify-center min-h-screen p-8">
