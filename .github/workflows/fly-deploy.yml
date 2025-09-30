@@ -19,11 +19,11 @@ jobs:
           echo "FLY_API_TOKEN (last 10 chars): ...${FLY_API_TOKEN: -10}"
           echo "FLY_API_TOKEN length: ${#FLY_API_TOKEN}"
           
-          # Set token as environment variable for flyctl
-          export FLY_API_TOKEN=$FLY_API_TOKEN
+          # Login with access token
+          flyctl auth login --access-token=$FLY_API_TOKEN
           
-          # Deploy with console using access token
-          flyctl console --dockerfile Dockerfile.deploy -C "/srv/deploy.sh" -a flyio-deploy-nextjs
+          # Deploy with console
+          flyctl console --dockerfile Dockerfile.deploy -C "/srv/deploy.sh" --env=FLY_API_TOKEN=$(flyctl tokens create deploy)
 
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
