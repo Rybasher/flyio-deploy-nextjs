@@ -1,58 +1,58 @@
 # Next.js Hello App
 
-Базовое Next.js приложение, которое отображает приветствие с именем из переменной окружения.
+A basic Next.js application that displays a greeting with a name from environment variables.
 
-## Установка и запуск
+## Installation and Setup
 
-1. Установите зависимости:
+1. Install dependencies:
 ```bash
 npm install
 ```
 
-2. Создайте файл `.env.local` из примера:
+2. Create `.env.local` file from the example:
 ```bash
 cp example.env .env.local
 ```
 
-3. Отредактируйте `.env.local` и установите значение для переменной `NEXT_PUBLIC_NAME`:
+3. Edit `.env.local` and set the value for the `NEXT_PUBLIC_NAME` variable:
 ```
 NEXT_PUBLIC_NAME=YourName
 ```
 
-4. Запустите приложение в режиме разработки:
+4. Run the application in development mode:
 ```bash
 npm run dev
 ```
 
-5. Откройте [http://localhost:3000](http://localhost:3000) в браузере.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Конфигурация
+## Configuration
 
-Приложение использует переменную окружения `NEXT_PUBLIC_NAME` для отображения персонализированного приветствия.
+The application uses the `NEXT_PUBLIC_NAME` environment variable to display a personalized greeting.
 
-- Префикс `NEXT_PUBLIC_` необходим для доступа к переменной на клиентской стороне
-- Если переменная не установлена, используется значение по умолчанию "World"
-- В режиме разработки переменная читается из файла `.env.local`
-- В продакшене переменная должна быть установлена в среде выполнения
+- The `NEXT_PUBLIC_` prefix is required for accessing the variable on the client side
+- If the variable is not set, the default value "World" is used
+- In development mode, the variable is read from the `.env.local` file
+- In production, the variable must be set in the runtime environment
 
-## Развертывание на Fly.io
+## Deployment on Fly.io
 
-Приложение готово для развертывания на Fly.io:
+The application is ready for deployment on Fly.io:
 
 ```bash
-# Установите Fly.io CLI и войдите в аккаунт
+# Install Fly.io CLI and login to your account
 fly auth login
 
-# Разверните приложение
+# Deploy the application
 fly deploy
 
-# Установите переменную окружения
+# Set the environment variable
 fly secrets set NEXT_PUBLIC_NAME=YourName
 ```
 
-## Структура проекта
+## Project Structure
 
-- `src/app/page.tsx` - главная страница приложения
-- `next.config.js` - конфигурация Next.js (standalone режим для Docker)
-- `Dockerfile` - конфигурация для контейнеризации
-- `example.env` - пример файла с переменными окружения
+- `src/app/page.tsx` - main application page
+- `next.config.js` - Next.js configuration (standalone mode for Docker)
+- `Dockerfile` - configuration for containerization
+- `example.env` - example file with environment variables
