@@ -14,7 +14,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - name: Deploy app
-        run: flyctl deploy --remote-only --build-secret NEXT_PUBLIC_NAME="$NAME"
+        run: |
+          echo "NAME variable: $NAME"
+          flyctl deploy --remote-only --build-secret NEXT_PUBLIC_NAME="$NAME"
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
           NAME: Kirill
