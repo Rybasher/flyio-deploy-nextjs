@@ -27,8 +27,10 @@ RUN npm ci --include=dev
 # Copy application code
 COPY . .
 
-# Build application
-RUN npx next build
+# Build application with secrets (for automated deployment)
+RUN --mount=type=secret,id=ALL_SECRETS \
+    eval "$(base64 -d /run/secrets/ALL_SECRETS)" && \
+    npx next build
 
 # Remove development dependencies
 RUN npm prune --omit=dev
