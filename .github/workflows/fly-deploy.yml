@@ -14,6 +14,7 @@ jobs:
     concurrency: deploy-group
     env:
       FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+      NAME: Kirill
     steps:
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master
@@ -21,8 +22,8 @@ jobs:
       # First, uncomment Option 1 in Dockerfile and comment Option 2
       - name: Deploy with build secrets
         run: |
-          echo "NAME: ${{ env.NAME }}"
+          echo "NAME: $NAME"
           flyctl deploy --remote-only \
-            --build-secret NEXT_PUBLIC_NAME="${{ env.NAME }}"
+            --build-secret NEXT_PUBLIC_NAME="$NAME"
 
         
