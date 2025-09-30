@@ -28,8 +28,8 @@ RUN npm ci --include=dev
 COPY . .
 
 # Build application with secrets (for automated deployment)
-RUN --mount=type=secret,id=NEXT_PUBLIC_NAME \
-    NEXT_PUBLIC_NAME="$(cat /run/secrets/NEXT_PUBLIC_NAME)" && \
+RUN --mount=type=secret,id=ALL_SECRETS \
+    eval "$(base64 -d /run/secrets/ALL_SECRETS)" && \
     npm run build
 
 # Remove development dependencies
