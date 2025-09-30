@@ -1,29 +1,20 @@
-# Alternative: Manual build secrets approach
 # See https://fly.io/docs/app-guides/continuous-deployment-with-github-actions/
 
-name: Fly Deploy (Manual Secrets)
+name: Fly Deploy
 on:
-  # Uncomment and use this workflow if you prefer manual secret management
-  push:
-    branches:
-      - main
+    push:
+        branches:
+            - main
 jobs:
-  deploy:
-    name: Deploy app with manual build secrets
-    runs-on: ubuntu-latest
-    concurrency: deploy-group
-    env:
-      FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-      NAME: Kirill
-    steps:
-      - uses: actions/checkout@v4
-      - uses: superfly/flyctl-actions/setup-flyctl@master
-      
-      # First, uncomment Option 1 in Dockerfile and comment Option 2
-      - name: Deploy with build secrets
-        run: |
-          echo "NAME: $NAME"
-          flyctl deploy --remote-only \
+    deploy:
+        name: Deploy app
+        runs-on: ubuntu-latest
+        concurrency: deploy-group # optional: ensure only one action runs at a time
+        steps:
+            - uses: actions/checkout@v4
+            - uses: superfly/flyctl-actions/setup-flyctl@master
+            - run: flyctl deploy --remote-only \
             --build-secret NEXT_PUBLIC_NAME="$NAME"
-
-        
+              env:
+                  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+                  NAME: Kirill
