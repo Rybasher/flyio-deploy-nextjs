@@ -4,15 +4,18 @@
 name: Fly Deploy (Manual Secrets)
 on:
   # Uncomment and use this workflow if you prefer manual secret management
-  # push:
-  #   branches:
-  #     - main
-  workflow_dispatch: # Manual trigger only
+  push:
+    branches:
+      - main
 jobs:
   deploy:
     name: Deploy app with manual build secrets
     runs-on: ubuntu-latest
     concurrency: deploy-group
+    env:
+      NAME: Kirill
+      FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+      NAME: ${{ secrets.NAME }}
     steps:
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master
@@ -20,9 +23,8 @@ jobs:
       # First, uncomment Option 1 in Dockerfile and comment Option 2
       - name: Deploy with build secrets
         run: |
+          echo "NAME: ${{ env.NAME }}"
           flyctl deploy --remote-only \
-            --build-secret NEXT_PUBLIC_NAME="${{ secrets.NAME }}"
+            --build-secret NEXT_PUBLIC_NAME="${{ env.NAME }}"
 
-        env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-          NAME: ${{ secrets.NAME }}
+        
