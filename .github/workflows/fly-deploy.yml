@@ -13,9 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     concurrency: deploy-group
     env:
-      NAME: Kirill
       FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-      NAME: ${{ secrets.NAME }}
     steps:
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master
